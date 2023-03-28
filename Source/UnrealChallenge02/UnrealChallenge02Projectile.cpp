@@ -3,6 +3,7 @@
 #include "UnrealChallenge02Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "PowerUp.h"
 
 AUnrealChallenge02Projectile::AUnrealChallenge02Projectile() 
 {
@@ -33,10 +34,18 @@ AUnrealChallenge02Projectile::AUnrealChallenge02Projectile()
 
 void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	UE_LOG(LogTemp, Warning, TEXT("Test1: %i"), OtherActor != nullptr && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics() );
+	UE_LOG(LogTemp, Warning, TEXT("Test2: %i"), OtherActor != nullptr && (OtherActor != this) && (OtherComp != nullptr) );
+	UE_LOG(LogTemp, Warning, TEXT("Test3: %i"), OtherActor != nullptr && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->GetCollisionObjectType() == ECC_Destructible);
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->GetCollisionObjectType() == ECC_Destructible)
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
-
+		
+		FActorSpawnParameters ActorSpawnParams;
+		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		
+		GetWorld()->SpawnActor<APowerUp>(PowerUpClass, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+		UE_LOG(LogTemp, Warning, TEXT("Hello"));
 		Destroy();
 	}
 }

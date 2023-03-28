@@ -108,3 +108,17 @@ bool AUnrealChallenge02Character::GetHasRifle()
 {
 	return bHasRifle;
 }
+
+void AUnrealChallenge02Character::ChangeBulletType()
+{
+	if(BulletType < 4)
+	{
+		BulletType++;
+		UE_LOG(LogTemp, Warning, TEXT("ChangeBullet"));
+	}
+}
+
+int AUnrealChallenge02Character::GetBulletType()
+{
+	return BulletType;
+}
