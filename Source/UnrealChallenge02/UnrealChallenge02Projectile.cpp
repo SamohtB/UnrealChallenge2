@@ -35,7 +35,7 @@ void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* O
 {
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
 	{
-		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		OtherComp->AddForceAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
 		Destroy();
 	}
