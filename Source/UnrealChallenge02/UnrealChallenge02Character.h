@@ -40,7 +40,7 @@ class AUnrealChallenge02Character : public ACharacter
 	class UInputAction* MoveAction;
 
 	/** Current Bullet Type*/
-	int BulletType = 0;
+	int BulletType = 1;
 	
 public:
 	AUnrealChallenge02Character();
@@ -68,7 +68,7 @@ public:
 
 	/** Changing for Bullet Type*/
 	UFUNCTION(BlueprintCallable, Category = Weapon)
-	void ChangeBulletType();
+	void ChangeBulletType(bool IsGrowing);
 
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	int GetBulletType();

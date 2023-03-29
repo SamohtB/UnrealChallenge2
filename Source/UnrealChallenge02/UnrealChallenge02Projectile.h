@@ -36,5 +36,14 @@ public:
 
 	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
 	TSubclassOf<class APowerUp> PowerUpClass;
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass1;
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass2;
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass3;
 };
 

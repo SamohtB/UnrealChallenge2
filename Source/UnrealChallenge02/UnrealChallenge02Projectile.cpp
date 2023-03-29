@@ -4,6 +4,7 @@
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
 #include "PowerUp.h"
+#include "DSP/AudioDebuggingUtilities.h"
 
 AUnrealChallenge02Projectile::AUnrealChallenge02Projectile() 
 {
@@ -43,8 +44,27 @@ void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* O
 		
 		FActorSpawnParameters ActorSpawnParams;
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+
+		int random = rand() % 4;
+
+		switch(random)
+		{
+		case 0:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		case 1:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass1, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		case 2:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass2, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		case 3:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass3, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		default:
+			break;
+		}
 		
-		GetWorld()->SpawnActor<APowerUp>(PowerUpClass, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
 		UE_LOG(LogTemp, Warning, TEXT("Hello"));
 		Destroy();
 	}
