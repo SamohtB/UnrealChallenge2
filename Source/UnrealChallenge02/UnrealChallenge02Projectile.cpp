@@ -30,7 +30,7 @@ AUnrealChallenge02Projectile::AUnrealChallenge02Projectile()
 	ProjectileMovement->bShouldBounce = true;
 
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 0.f;
 }
 
 void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
@@ -41,6 +41,7 @@ void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* O
 	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->GetCollisionObjectType() == ECC_Destructible)
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		UE_LOG(LogTemp, Warning, TEXT("HIT OBJECT"));
 		
 		FActorSpawnParameters ActorSpawnParams;
 		ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
@@ -66,6 +67,6 @@ void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* O
 		}
 		
 		UE_LOG(LogTemp, Warning, TEXT("Hello"));
-		Destroy();
+		//Destroy();
 	}
 }

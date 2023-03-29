@@ -30,7 +30,7 @@ AUnrealChallenge02Projectile1::AUnrealChallenge02Projectile1()
 	ProjectileMovement->bShouldBounce = true;
 
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 0.f;
 
 }
 
@@ -40,7 +40,7 @@ void AUnrealChallenge02Projectile1::OnHit(UPrimitiveComponent* HitComp, AActor* 
 	{
 		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
 
-		Destroy();
+		//Destroy();
 	}
 }
 
