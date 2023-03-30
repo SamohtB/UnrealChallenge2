@@ -3,6 +3,8 @@
 #include "UnrealChallenge02Projectile.h"
 #include "GameFramework/ProjectileMovementComponent.h"
 #include "Components/SphereComponent.h"
+#include "PowerUp.h"
+#include "DSP/AudioDebuggingUtilities.h"
 
 AUnrealChallenge02Projectile::AUnrealChallenge02Projectile() 
 {
@@ -28,16 +30,42 @@ AUnrealChallenge02Projectile::AUnrealChallenge02Projectile()
 	ProjectileMovement->bShouldBounce = true;
 
 	// Die after 3 seconds by default
-	InitialLifeSpan = 3.0f;
+	InitialLifeSpan = 0.f;
 }
 
 void AUnrealChallenge02Projectile::OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
 {
-	// Only add impulse and destroy projectile if we hit a physics
-	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->IsSimulatingPhysics())
+	if ((OtherActor != nullptr) && (OtherActor != this) && (OtherComp != nullptr) && OtherComp->GetCollisionObjectType() == ECC_Destructible)
 	{
-		OtherComp->AddForceAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		OtherComp->AddImpulseAtLocation(GetVelocity() * 100.0f, GetActorLocation());
+		UE_LOG(LogTemp, Warning, TEXT("HIT OBJECT"));
+		
+		//FActorSpawnParameters ActorSpawnParams;
+		//ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		/*
+		int random = rand() % 4;
+
+		switch(random)
+		{
+		case 0:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		case 1:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass1, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		case 2:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass2, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		case 3:
+			GetWorld()->SpawnActor<APowerUp>(PowerUpClass3, OtherActor->GetActorLocation(), OtherActor->GetActorRotation(), ActorSpawnParams);
+			break;
+		default:
+			break;
+		}
+		
+		UE_LOG(LogTemp, Warning, TEXT("Hello"));
 
 		Destroy();
+		*/
 	}
 }

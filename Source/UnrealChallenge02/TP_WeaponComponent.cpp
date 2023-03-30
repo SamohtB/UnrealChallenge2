@@ -4,6 +4,7 @@
 #include "TP_WeaponComponent.h"
 #include "UnrealChallenge02Character.h"
 #include "UnrealChallenge02Projectile.h"
+//#include "UnrealChallenge02Projectile1.h"
 #include "GameFramework/PlayerController.h"
 #include "Camera/PlayerCameraManager.h"
 #include "Kismet/GameplayStatics.h"
@@ -24,9 +25,9 @@ void UTP_WeaponComponent::Fire()
 	{
 		return;
 	}
-
+	UE_LOG(LogTemp, Warning, TEXT("Test Projectiles: %i"), ProjectileClass != nullptr && ProjectileClass1 != nullptr && ProjectileClass2 != nullptr && ProjectileClass3 != nullptr);
 	// Try and fire a projectile
-	if (ProjectileClass != nullptr)
+	if (ProjectileClass != nullptr && ProjectileClass1 != nullptr && ProjectileClass2 != nullptr && ProjectileClass3 != nullptr)
 	{
 		UWorld* const World = GetWorld();
 		if (World != nullptr)
@@ -38,10 +39,35 @@ void UTP_WeaponComponent::Fire()
 	
 			//Set Spawn Collision Handling Override
 			FActorSpawnParameters ActorSpawnParams;
-			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AdjustIfPossibleButDontSpawnIfColliding;
-	
+			ActorSpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+			
+			BulletType = Character->GetBulletType();
+			
 			// Spawn the projectile at the muzzle
-			World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			//World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+			switch(BulletType)
+			{
+			case 0:
+				World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				UE_LOG(LogTemp, Warning, TEXT("0"));
+				break;
+			case 1:
+				World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass1, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				UE_LOG(LogTemp, Warning, TEXT("1"));
+				break;
+			case 2:
+				World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass2, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				UE_LOG(LogTemp, Warning, TEXT("2"));
+				break;
+			case 3:
+				World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass3, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				UE_LOG(LogTemp, Warning, TEXT("3"));
+				break;
+			default:
+				World->SpawnActor<AUnrealChallenge02Projectile>(ProjectileClass3, SpawnLocation, SpawnRotation, ActorSpawnParams);
+				break;
+			}
+			
 		}
 	}
 	
@@ -65,12 +91,14 @@ void UTP_WeaponComponent::Fire()
 
 void UTP_WeaponComponent::AttachWeapon(AUnrealChallenge02Character* TargetCharacter)
 {
+    UE_LOG(LogTemp, Warning, TEXT("wow0"));
+    
 	Character = TargetCharacter;
 	if (Character == nullptr)
 	{
 		return;
 	}
-
+	UE_LOG(LogTemp, Warning, TEXT("wow1"));
 	// Attach the weapon to the First Person Character
 	FAttachmentTransformRules AttachmentRules(EAttachmentRule::SnapToTarget, true);
 	AttachToComponent(Character->GetMesh1P(), AttachmentRules, FName(TEXT("GripPoint")));

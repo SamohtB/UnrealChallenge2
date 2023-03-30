@@ -16,8 +16,17 @@ class UNREALCHALLENGE02_API UTP_WeaponComponent : public USkeletalMeshComponent
 public:
 	/** Projectile class to spawn */
 	UPROPERTY(EditDefaultsOnly, Category=Projectile)
-	TSubclassOf<class AUnrealChallenge02Projectile> ProjectileClass;
+	TSubclassOf<class AUnrealChallenge02Projectile> ProjectileClass; 
 
+	UPROPERTY(EditDefaultsOnly, Category=Projectile)
+	TSubclassOf<class AUnrealChallenge02Projectile> ProjectileClass1;
+
+	UPROPERTY(EditDefaultsOnly, Category=Projectile)
+	TSubclassOf<class AUnrealChallenge02Projectile> ProjectileClass2;
+	
+	UPROPERTY(EditDefaultsOnly, Category=Projectile)
+	TSubclassOf<class AUnrealChallenge02Projectile> ProjectileClass3;
+	
 	/** Sound to play each time we fire */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category=Gameplay)
 	USoundBase* FireSound;
@@ -57,4 +66,5 @@ protected:
 private:
 	/** The Character holding this weapon*/
 	AUnrealChallenge02Character* Character;
+	int BulletType = 0;
 };

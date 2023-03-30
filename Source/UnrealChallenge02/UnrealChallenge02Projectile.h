@@ -29,9 +29,21 @@ public:
 	UFUNCTION()
 	void OnHit(UPrimitiveComponent* HitComp, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
-	/** Returns CollisionComp subobject **/
+	/** Returns CollisionComp sub object **/
 	USphereComponent* GetCollisionComp() const { return CollisionComp; }
-	/** Returns ProjectileMovement subobject **/
+	/** Returns ProjectileMovement sub object **/
 	UProjectileMovementComponent* GetProjectileMovement() const { return ProjectileMovement; }
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass;
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass1;
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass2;
+
+	UPROPERTY(EditDefaultsOnly, Category=PowerUp)
+	TSubclassOf<class APowerUp> PowerUpClass3;
 };
 

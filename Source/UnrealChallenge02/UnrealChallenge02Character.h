@@ -39,6 +39,8 @@ class AUnrealChallenge02Character : public ACharacter
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category=Input, meta=(AllowPrivateAccess = "true"))
 	class UInputAction* MoveAction;
 
+	/** Current Bullet Type*/
+	int BulletType = 1;
 	
 public:
 	AUnrealChallenge02Character();
@@ -64,6 +66,13 @@ public:
 	UFUNCTION(BlueprintCallable, Category = Weapon)
 	bool GetHasRifle();
 
+	/** Changing for Bullet Type*/
+	UFUNCTION(BlueprintCallable, Category = Weapon)
+	void ChangeBulletType(bool IsGrowing);
+
+	UFUNCTION(BlueprintCallable, Category = Weapon)
+	int GetBulletType();
+	
 protected:
 	/** Called for movement input */
 	void Move(const FInputActionValue& Value);
@@ -81,7 +90,5 @@ public:
 	USkeletalMeshComponent* GetMesh1P() const { return Mesh1P; }
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
-
-
 };
 
